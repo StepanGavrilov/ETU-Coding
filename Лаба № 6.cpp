@@ -7,7 +7,7 @@ const char line = '\n';
 
 //cheker numbers;;
 int checker()
-{
+{	
 	int var_to_input = 0;
 	char c;
 	c = _getch();
@@ -60,28 +60,67 @@ double OnlyDouble()
 
 
 // main func
-double Function(double x, int n)
+double Function(double X, int N)
 {
-	double u0 = 2, u1 = x, u = 0;
-	for (int i = 3; i < n; i++)
-	{
-		u = x * ( u1 + 1 / i * u0);
-		u0 = u1;
-		
+	double u0 = 2;
+	double u1 = X;
+	double u = 0;
+	double rez;
+
+	switch (N) {
+	case 0:
+		return 2;
+	case 1:
+		return X;
+	default:
+		rez = X * Function(X, N - 1) - Function(X, N - 2);
+		return rez;
+
 	}
-	return u;
 }
 // main func
 
 
 int main()
 {
+	setlocale(LC_ALL, "Rus");
+	int N;
+	int X;
+
 	bool attemp1 = true;
 	while (attemp1 == true) {
-		double x;
-		x = Function(0.235, 1.4);
-		cout << x << endl;
-		cout << "" << endl;
+		
+		cout << "Введите значение степени N: " << line;
+		int N;
+		N = checker();
+		cout << line;
+		
+		bool attemp_x= true;
+
+		while (attemp_x == true) {
+			// check variables
+			cout << "Введите значение X: |x| < 2 " << line;
+			double X;
+			X = OnlyDouble();
+			if ((X > -2) && (X < 2)) {
+				cout << "Вы ввели X: " << X <<line;
+				cout << "Значение подходит под область" << line;
+				attemp_x = false;
+			}
+			else {
+				cout << "Вы ввели X: " << X << line;
+				cout << "Значение не подходит по область" << line;
+				continue;
+			}
+			// check variables
+			
+			// main
+			double rezult;
+		 	rezult = Function(X, N);
+			cout << "Результат вычислений: " << rezult <<line;
+			// main
+		}
+		
 		
 		
 		
@@ -104,7 +143,7 @@ int main()
 		
 		// continue
 		char repeat;
-		cout << "Хотите ещё раз ввести данныее ? (+/-)" << line;
+		cout << "Хотите ещё раз ввести данные ? (+/-)" << line;
 		cin >> repeat;
 		if (repeat == '+') {
 			continue;
